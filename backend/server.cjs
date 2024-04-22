@@ -1,5 +1,6 @@
 // Import all required packages
 const express = require('express')
+const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
@@ -10,7 +11,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 // Get variables from the ENV file - Includes API key
-require('dotenv').config();
+require('dotenv/config')
+
+//setting up the MongoDB database
+const dbOptions = {useNewUrlParser:true, useUnifiedTopology:true}
+mongoose.connect(process.env.DB_UR, dbOptions)
+.then(() => {console.log("Database is connected")})
+.catch(err => console.log(err))
 
 // The post request to access the API data
 app.post('/done', async (req, res) => {
