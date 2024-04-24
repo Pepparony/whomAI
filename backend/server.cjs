@@ -2,6 +2,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
+const {Users} = require('./models/userSchema.js')
 const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
 
