@@ -2,9 +2,20 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const Users = require('./models/userSchema.js')
+const User = require('./models/userSchema.js')
 const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
+
+// Setting up the session to store user cookies
+app.use(session(sessionConfig))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+const sessionConfig = {
+    secret: '83asdniq9129qnnqd9100',
+    resave: false,
+    saveUninitialized: true,
+}
+
 
 // Add needed packages into the app, cors for the request and JSON to communicate data
 app.use(cors())
@@ -42,9 +53,23 @@ app.post('/done', async (req, res) => {
 })
 
 
-app.post('/register', (req,res,next) => {
-    const {email, username, userPassword} = req.body;
-    
+app.post('/register', async (req,res) => {
+    const {email, username, password} = req.body;
+    const search = await User.findOne({email:email})
+    if (search) {
+        res.send('email in use')
+    }
+    else { 
+        const finalPassword = await bcrypt.hash(password, 12)
+        const user = await new User({
+            email:email,
+            username:username,
+            userPassword: finalPassword,
+        })
+        await user.save()
+        req.session.user_id = user._id;
+        res.redirect('http:localhost:5173')
+    }
 })
 
 // The Localhost port that the server is being hosted on

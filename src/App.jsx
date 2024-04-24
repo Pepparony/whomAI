@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 function App() {
@@ -32,15 +32,25 @@ function App() {
 
   const signUp = async() => {
     try{
-    const check = await axios.post('http://localhost:3000/register', {email: email, username: username, userPassword: password})
+    const check = await axios.post('http://localhost:3000/register', {email: email, username: username, password: password})
+    if(check === 'email in use') {
+      return redirect('/login')
+    }
+    else {
+      return redirect('/')
+    }
   }
   catch (err) {
     console.log(err)
     res.send(err)
   }
   }
-
+  
+  useEffect(() => {
+    document.title = 'whomAI | Login'
+  })
   return (
+
     <div className="grid place-items-center bg-gray-100 h-screen w-screen font-main">
       <div className="bg-white w-2/5 h-4/5 border shadow-xl">
         <div className="flex flex-col place-items-start ml-[10%] h-[25%] justify-center space-y-1">
@@ -61,7 +71,7 @@ function App() {
             <div className="text-lg">Google</div>
             <div className="text-lg">Appple</div>
           </section>
-          <button className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Register</button>
+          <button onClick={signUp} className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Register</button>
         </div>
       </div>
     </div>
