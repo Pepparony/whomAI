@@ -2,7 +2,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const {Users} = require('./models/userSchema.js')
+const Users = require('./models/userSchema.js')
 const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
 
@@ -39,6 +39,12 @@ app.post('/done', async (req, res) => {
     catch (err) {
         console.log(err)
     }
+})
+
+
+app.post('/register', (req,res,next) => {
+    const {email, username, userPassword} = req.body;
+    
 })
 
 // The Localhost port that the server is being hosted on
