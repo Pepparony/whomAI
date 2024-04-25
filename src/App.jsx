@@ -34,24 +34,21 @@ function App() {
     setViewPasscode(true)
   }
 
-  const signUp = async (e) => {
+  async function signUp(){
     try {
-      e.preventDefault()
       const check = await axios.post('http://localhost:3000/register', { email: email, username: username, password: password })
-      if (check) {
-        res.send(data.error)
-      }
       if (data.error) {
-        toast.error(data.error)
+        toast.error(error)
       }
       else {
-        res.send('sucky sucky')
-        toast.success('Login successful')
+        console.log(check)
+        toast.success('account created successfully')
       }
     }
     catch (err) {
-      console.send(err)
+      console.log(err)
     }
+    // console.log('You clicked the submit button')
   }
 
   useEffect(() => {
@@ -65,22 +62,22 @@ function App() {
           <h2 className="font-bold text-4xl">whomAI</h2>
           <p className="text-lg">Create an account to talk to your AI friend</p>
         </div>
-        <section className="flex flex-col h-[40%] w-full place-items-center space-y-10">
-          <form className="flex flex-col h-[40%] w-full place-items-center space-y-10" onSubmit={signUp}>
-            <input onChange={editEmail} value={email} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="email" name="email" placeholder='Email' />
-            <input onChange={editUsername} value={username} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="text" name="username" placeholder='Username' />
-            {viewPasscode == true ? <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="text" name="password" placeholder="Password" />
-              <button className="" onClick={viewPassword}>-_-</button> </div> : <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="password" name="password" placeholder="Password" />
-              <button className="" onClick={viewPassword}>-_-</button> </div>}
-          </form>
-        </section>
-        <div className="h-[35%] w-4/5 ml-[10%] flex flex-col justify-evenly">
-          <button className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Register</button>          <section className="flex w-full justify-evenly">
+        <section className="flex flex-col h-[35%] w-full place-items-center space-y-10">
+          <input onChange={editEmail} value={email} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="email" name="email" placeholder='Email' />
+          <input onChange={editUsername} value={username} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="text" name="username" placeholder='Username' />
+          {viewPasscode == true ? <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="text" name="password" placeholder="Password" />
+            <button className="" onClick={viewPassword}>-_-</button> </div> : <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="password" name="password" placeholder="Password" />
+            <button className="" onClick={viewPassword}>-_-</button> </div>}
+          <button onClick={signUp} type="submit" className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Register</button>
+        <section className="flex w-full justify-between h-full flex-col">
+          <div className="w-4/5 ml-[10%] flex justify-evenly">
             <div className="text-lg">Git</div>
             <div className="text-lg">Google</div>
             <div className="text-lg">Appple</div>
-          </section>
-          <a className="text-blue-500 hover:underline self-center text-lg" href="">Already have an account?</a>        </div>
+          </div>
+          <a className="text-blue-500 hover:underline self-center text-lg" href="">Already have an account?</a>
+        </section>
+        </section>
       </div>
     </div>
   )

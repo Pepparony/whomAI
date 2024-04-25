@@ -2,19 +2,22 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const User = require('./models/userSchema.js')
+const User = require('../models/userSchema.cjs')
 const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
+const session = require('express-session')
+const bcrypt = require('bcrypt')
+
 
 // Setting up the session to store user cookies
-app.use(session(sessionConfig))
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const sessionConfig = {
     secret: '83asdniq9129qnnqd9100',
     resave: false,
     saveUninitialized: true,
 }
+app.use(session(sessionConfig))
+app.use(express.json());
 
 
 // Add needed packages into the app, cors for the request and JSON to communicate data
@@ -27,7 +30,7 @@ require('dotenv/config')
 
 //setting up the MongoDB database
 const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true }
-mongoose.connect(process.env.DB_UR, dbOptions)
+mongoose.connect(process.env.DB_URL, dbOptions)
     .then(() => { console.log("Database is connected") })
     .catch(err => console.log(err))
 
@@ -58,35 +61,35 @@ app.post('/register', async (req, res) => {
     const { email, username, password } = req.body;
     const search = await User.findOne({ email: email })
     if (search) {
-        res.json({
+        return res.json({
             error: 'email is already in use'
         })
     }
     if (!password) {
-        res.json({
+        return res.json({
             error: 'password is required'
         })
     }
     if (!email) {
-        res.json({
+        return res.json({
             error: 'email is required'
         })
     }
     if (!username) {
-        res.json({
+        return res.json({
             error: 'username is required'
         })
     }
     else {
         const finalPassword = await bcrypt.hash(password, 12)
-        const user = await new User({
+        const user = await User.create({
             email: email,
             username: username,
             userPassword: finalPassword,
         })
         await user.save()
         req.session.user_id = user._id;
-        res.json(user)
+        return res.json(user)
     }
 }
 catch(err) {

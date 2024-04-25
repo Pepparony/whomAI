@@ -8,5 +8,5 @@ const userSchema = new Schema({
     dateAdded: {type:Date, default: Date.now()}
 })
 
-module.exports = mongoose.model("Users", userSchema ,'users');
+module.exports = mongoose.model("User", userSchema);
 ;
