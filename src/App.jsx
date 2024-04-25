@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 // import { useNavigate } from 'react-router-dom'
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
     setEmail(email)
     return email
   }
-  
+
   const editUsername = (evt) => {
     const username = evt.target.value
     setUsername(username)
@@ -29,30 +29,31 @@ function App() {
     return password
   }
 
-  function viewPassword() {
+  function viewPassword(e) {
+    e.preventDefault()
     setViewPasscode(true)
   }
 
-  const signUp = async() => {
-    try{
-    const check = await axios.post('http://localhost:3000/register', {email: email, username: username, password: password})
-    if(check === 'email in use') {
-      return redirect('/login')
+  const signUp = async (e) => {
+    try {
+      e.preventDefault()
+      const check = await axios.post('http://localhost:3000/register', { email: email, username: username, password: password })
+      if (check) {
+        res.send(data.error)
+      }
+      if (data.error) {
+        toast.error(data.error)
+      }
+      else {
+        res.send('sucky sucky')
+        toast.success('Login successful')
+      }
     }
-    if (data.error) {
-      toast.error(data.error)
-    }
-    else {
-      setData({})
-      toast.success('Login successful')
-      navigate('/')
+    catch (err) {
+      console.send(err)
     }
   }
-  catch (err) {
-    console.log(err)
-  }
-  }
-  
+
   useEffect(() => {
     document.title = 'whomAI | Login'
   })
@@ -65,21 +66,21 @@ function App() {
           <p className="text-lg">Create an account to talk to your AI friend</p>
         </div>
         <section className="flex flex-col h-[40%] w-full place-items-center space-y-10">
-          <input onChange={editEmail} value={email} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="email" name="email" placeholder='Email'/>
-          <input onChange={editUsername} value={username} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="text" name="username" placeholder='Username'/>
-          {viewPasscode == true ? <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="text" name="password" placeholder="Password"/>
-            <button className="" onClick={viewPassword}>-_-</button> </div> : <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="password" name="password" placeholder="Password"/>
-            <button className="" onClick={viewPassword}>-_-</button> </div>}
+          <form className="flex flex-col h-[40%] w-full place-items-center space-y-10" onSubmit={signUp}>
+            <input onChange={editEmail} value={email} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="email" name="email" placeholder='Email' />
+            <input onChange={editUsername} value={username} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="text" name="username" placeholder='Username' />
+            {viewPasscode == true ? <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="text" name="password" placeholder="Password" />
+              <button className="" onClick={viewPassword}>-_-</button> </div> : <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="password" name="password" placeholder="Password" />
+              <button className="" onClick={viewPassword}>-_-</button> </div>}
+          </form>
         </section>
         <div className="h-[35%] w-4/5 ml-[10%] flex flex-col justify-evenly">
-        <a className="text-blue-500 hover:underline self-center text-lg" href="">Already have an account?</a>
-          <section className="flex w-full justify-evenly">
+          <button className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Register</button>          <section className="flex w-full justify-evenly">
             <div className="text-lg">Git</div>
             <div className="text-lg">Google</div>
             <div className="text-lg">Appple</div>
           </section>
-          <button onClick={signUp} className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Register</button>
-        </div>
+          <a className="text-blue-500 hover:underline self-center text-lg" href="">Already have an account?</a>        </div>
       </div>
     </div>
   )
