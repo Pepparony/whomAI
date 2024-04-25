@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import {toast} from 'react-hot-toast'
+// import { useNavigate } from 'react-router-dom'
 
 function App() {
+  // const navigate = useNavigate()
 
   const [viewPasscode, setViewPasscode] = useState(false)
   const [email, setEmail] = useState("")
@@ -36,13 +39,17 @@ function App() {
     if(check === 'email in use') {
       return redirect('/login')
     }
+    if (data.error) {
+      toast.error(data.error)
+    }
     else {
-      return redirect('/')
+      setData({})
+      toast.success('Login successful')
+      navigate('/')
     }
   }
   catch (err) {
     console.log(err)
-    res.send(err)
   }
   }
   

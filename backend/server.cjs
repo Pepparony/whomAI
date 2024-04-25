@@ -20,16 +20,16 @@ const sessionConfig = {
 // Add needed packages into the app, cors for the request and JSON to communicate data
 app.use(cors())
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
 
 // Get variables from the ENV file - Includes API key
 require('dotenv/config')
 
 //setting up the MongoDB database
-const dbOptions = {useNewUrlParser:true, useUnifiedTopology:true}
+const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 mongoose.connect(process.env.DB_UR, dbOptions)
-.then(() => {console.log("Database is connected")})
-.catch(err => console.log(err))
+    .then(() => { console.log("Database is connected") })
+    .catch(err => console.log(err))
 
 // The post request to access the API data
 app.post('/done', async (req, res) => {
@@ -41,10 +41,10 @@ app.post('/done', async (req, res) => {
             model: 'claude-2.1',
             max_tokens: 1024,
             messages: [
-              {"role": "user", "content": `${req.body.messages}`}
+                { "role": "user", "content": `${req.body.messages}` }
             ]
-          });
-          // Send the JSON
+        });
+        // Send the JSON
         res.send(msg.content)
     }
     catch (err) {
@@ -53,23 +53,45 @@ app.post('/done', async (req, res) => {
 })
 
 
-app.post('/register', async (req,res) => {
-    const {email, username, password} = req.body;
-    const search = await User.findOne({email:email})
+app.post('/register', async (req, res) => {
+    try {
+    const { email, username, password } = req.body;
+    const search = await User.findOne({ email: email })
     if (search) {
-        res.send('email in use')
+        res.json({
+            error: 'email is already in use'
+        })
     }
-    else { 
+    if (!password) {
+        res.json({
+            error: 'password is required'
+        })
+    }
+    if (!email) {
+        res.json({
+            error: 'email is required'
+        })
+    }
+    if (!username) {
+        res.json({
+            error: 'username is required'
+        })
+    }
+    else {
         const finalPassword = await bcrypt.hash(password, 12)
         const user = await new User({
-            email:email,
-            username:username,
+            email: email,
+            username: username,
             userPassword: finalPassword,
         })
         await user.save()
         req.session.user_id = user._id;
-        res.redirect('http:localhost:5173')
+        res.json(user)
     }
+}
+catch(err) {
+    console.log(err)
+}
 })
 
 // The Localhost port that the server is being hosted on

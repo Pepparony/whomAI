@@ -5,11 +5,13 @@ import App from './App.jsx'
 import './index.css'
 import Testing from './testing.jsx'
 import Homepage from './Homepage.jsx'
+// import {Toaster} from 'react-hot-toast'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
       <Switch>
+        {/* <Toaster position="bottom-right" /> */}
         <Route exact path="/">
           <Homepage/>
         </Route>
