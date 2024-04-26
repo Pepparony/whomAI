@@ -35,10 +35,27 @@ function App() {
   }
 
   async function signUp(){
+    const inputBox = document.getElementById('emailBox')
+    const passwordInputBox = document.getElementById('passwordInputBox')
+    const usernameInputBox = document.getElementById('usernameInputBox')
     try {
       const check = await axios.post('http://localhost:3000/register', { email: email, username: username, password: password })
-      if (data.error) {
-        toast.error(error)
+      if (check.data.error === 'email is already in use') {
+        inputBox.classList.add('text-red-500')
+        inputBox.value = 'email is already in use'
+      }
+      if(check.data.error === 'password is required') {
+        setViewPasscode(true)
+        passwordInputBox.classList.add('text-red-500')
+        passwordInputBox.value = 'You must create a password'
+      }
+      if(check.data.error === 'email is required') {
+        inputBox.classList.add('text-red-500')
+        inputBox.value = 'You must provide an email'
+      }
+      if(check.data.error === 'username is required') {
+        usernameInputBox.classList.add('text-red-500')
+        usernameInputBox.value = 'You must create a username'
       }
       else {
         console.log(check)
@@ -63,10 +80,10 @@ function App() {
           <p className="text-lg">Create an account to talk to your AI friend</p>
         </div>
         <section className="flex flex-col h-[35%] w-full place-items-center space-y-10">
-          <input onChange={editEmail} value={email} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="email" name="email" placeholder='Email' />
-          <input onChange={editUsername} value={username} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="text" name="username" placeholder='Username' />
-          {viewPasscode == true ? <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="text" name="password" placeholder="Password" />
-            <button className="" onClick={viewPassword}>-_-</button> </div> : <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="password" name="password" placeholder="Password" />
+          <input onChange={editEmail} value={email} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="email" name="email" placeholder='Email' id="emailBox"/>
+          <input onChange={editUsername} value={username} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="text" name="username" placeholder='Username' if="usernameInputBox"/>
+          {viewPasscode == true ? <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="text" name="password" placeholder="Password" id="passwordInputBox"/>
+            <button className="" onClick={viewPassword}>-_-</button> </div> : <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="password" name="password" placeholder="Password" id="passwordInputBox"/>
             <button className="" onClick={viewPassword}>-_-</button> </div>}
           <button onClick={signUp} type="submit" className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Register</button>
         <section className="flex w-full justify-between h-full flex-col">
