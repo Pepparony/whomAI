@@ -5,14 +5,12 @@ import App from './App.jsx'
 import './index.css'
 import Testing from './testing.jsx'
 import Homepage from './Homepage.jsx'
-import { Toaster } from 'react-hot-toast'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
       <Switch>
         <Route exact path="/">
-        <Toaster position='bottom-right' toastOptions={{duration: 2000}}/>
           <Homepage/>
         </Route>
         <Route exact path="/login">

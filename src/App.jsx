@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { toast } from 'react-hot-toast'
-// import { useNavigate } from 'react-router-dom'
 
 function App() {
-  // const navigate = useNavigate()
 
   const [viewPasscode, setViewPasscode] = useState(false)
   const [email, setEmail] = useState("")
@@ -59,7 +56,7 @@ function App() {
       }
       else {
         console.log(check)
-        toast.success('account created successfully')
+        alert('whomAI account created successfully')
       }
     }
     catch (err) {
