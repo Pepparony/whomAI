@@ -5,6 +5,7 @@ import App from './App.jsx'
 import './index.css'
 import Testing from './testing.jsx'
 import Homepage from './Homepage.jsx'
+import Login from './Login.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,11 +14,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route exact path="/">
           <Homepage/>
         </Route>
-        <Route exact path="/login">
+        <Route exact path="/register">
           <App />
         </Route>
         <Route exact path="/testing">
             <Testing />
+        </Route>
+        <Route exact path='/login'>
+          <Login/>
         </Route>
       </Switch>
     </Router>

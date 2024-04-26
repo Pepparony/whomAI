@@ -97,6 +97,15 @@ catch(err) {
 }
 })
 
+app.post('/login', (req,res) => {
+    try {
+        console.log('you are trying to log in')
+    }
+    catch(err) {
+        console.log(err)
+    }
+})
+
 // The Localhost port that the server is being hosted on
 app.listen(3000, (req, res) => {
     console.log('LISTENING ON PORT 3000')

@@ -66,7 +66,7 @@ function App() {
   }
 
   useEffect(() => {
-    document.title = 'whomAI | Login'
+    document.title = 'whomAI | Register'
   })
   return (
 
@@ -89,7 +89,7 @@ function App() {
             <div className="text-lg">Google</div>
             <div className="text-lg">Appple</div>
           </div>
-          <a className="text-blue-500 hover:underline self-center text-lg" href="">Already have an account?</a>
+          <a className="text-blue-500 hover:underline self-center text-lg" href="/login">Already have an account?</a>
         </section>
         </section>
       </div>
