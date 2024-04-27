@@ -58,50 +58,71 @@ app.post('/done', async (req, res) => {
 
 app.post('/register', async (req, res) => {
     try {
-    const { email, username, password } = req.body;
-    const search = await User.findOne({ email: email })
-    if (search) {
-        return res.json({
-            error: 'email is already in use'
-        })
+        const { email, username, password } = req.body;
+        const search = await User.findOne({ email: email })
+        if (search) {
+            return res.json({
+                error: 'email is already in use'
+            })
+        }
+        if (!password) {
+            return res.json({
+                error: 'password is required'
+            })
+        }
+        if (!email) {
+            return res.json({
+                error: 'email is required'
+            })
+        }
+        if (!username) {
+            return res.json({
+                error: 'username is required'
+            })
+        }
+        else {
+            const finalPassword = await bcrypt.hash(password, 12)
+            const user = await User.create({
+                email: email,
+                username: username,
+                userPassword: finalPassword,
+            })
+            await user.save()
+            req.session.user_id = user._id;
+            return res.json({
+                message: 'whomAI account created successfully'
+            })
+        }
     }
-    if (!password) {
-        return res.json({
-            error: 'password is required'
-        })
+    catch (err) {
+        console.log(err)
     }
-    if (!email) {
-        return res.json({
-            error: 'email is required'
-        })
-    }
-    if (!username) {
-        return res.json({
-            error: 'username is required'
-        })
-    }
-    else {
-        const finalPassword = await bcrypt.hash(password, 12)
-        const user = await User.create({
-            email: email,
-            username: username,
-            userPassword: finalPassword,
-        })
-        await user.save()
-        req.session.user_id = user._id;
-        return res.json(user)
-    }
-}
-catch(err) {
-    console.log(err)
-}
 })
 
-app.post('/login', (req,res) => {
+app.post('/login', async (req, res) => {
     try {
-        console.log('you are trying to log in')
+        const { email, password } = req.body
+        const user = await User.findOne({ email: email })
+        if (!user) {
+            return res.json({
+                erorr: 'error'
+            })
+        }
+        const result = await bcrypt.compare(password, user.userPassword)
+        if (result) {
+            req.session.user_id = user._id
+            return res.json({
+                message: 'Login successful, welcome back',
+                redirectLink: 'http://localhost5173'
+            })
+        }
+        else {
+            return res.json({
+                error: 'error'
+            })
+        }
     }
-    catch(err) {
+    catch (err) {
         console.log(err)
     }
 })

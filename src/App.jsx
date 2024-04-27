@@ -54,9 +54,8 @@ function App() {
         usernameInputBox.classList.add('text-red-500')
         usernameInputBox.value = 'You must create a username'
       }
-      else {
-        console.log(check)
-        alert('whomAI account created successfully')
+      else if(check.data.message) {
+        alert(check.data.message)
       }
     }
     catch (err) {
@@ -78,7 +77,7 @@ function App() {
         </div>
         <section className="flex flex-col h-[35%] w-full place-items-center space-y-10">
           <input onChange={editEmail} value={email} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="email" name="email" placeholder='Email' id="emailBox"/>
-          <input onChange={editUsername} value={username} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="text" name="username" placeholder='Username' if="usernameInputBox"/>
+          <input onChange={editUsername} value={username} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="text" name="username" placeholder='Username' id="usernameInputBox"/>
           {viewPasscode == true ? <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="text" name="password" placeholder="Password" id="passwordInputBox"/>
             <button className="" onClick={viewPassword}>-_-</button> </div> : <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="password" name="password" placeholder="Password" id="passwordInputBox"/>
             <button className="" onClick={viewPassword}>-_-</button> </div>}
