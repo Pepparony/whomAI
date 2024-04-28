@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { Route, Routes, BrowserRouter } from "react-router-dom"
 import App from './App.jsx'
 import './index.css'
 import Testing from './testing.jsx'
@@ -9,21 +9,13 @@ import Login from './Login.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Homepage/>
-        </Route>
-        <Route exact path="/register">
-          <App />
-        </Route>
-        <Route exact path="/testing">
-            <Testing />
-        </Route>
-        <Route exact path='/login'>
-          <Login/>
-        </Route>
-      </Switch>
-    </Router>
-  </React.StrictMode>,
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Homepage />}/>
+        <Route exact path="/register" element={<App />}/>
+        <Route exact path="/testing" element={<Testing />} />
+        <Route exact path='/login' element={<Login/>} />
+    </Routes>
+  </BrowserRouter>
+  </React.StrictMode >,
 )

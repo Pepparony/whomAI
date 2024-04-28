@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 function App() {
-
+  const navigate = useNavigate()
   const [viewPasscode, setViewPasscode] = useState(false)
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
@@ -55,7 +56,7 @@ function App() {
         usernameInputBox.value = 'You must create a username'
       }
       else if(check.data.message) {
-        alert(check.data.message)
+        return navigate('/')
       }
     }
     catch (err) {

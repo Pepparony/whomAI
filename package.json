@@ -24,7 +24,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^5.3.4",
+    "react-router-dom": "^6.23.0",
     "session": "^0.1.0"
   },
   "devDependencies": {
