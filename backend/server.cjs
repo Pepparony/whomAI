@@ -12,7 +12,7 @@ const bcrypt = require('bcrypt')
 // Setting up the session to store user cookies
 app.use(express.urlencoded({ extended: true }));
 const sessionConfig = {
-    secret: '83asdniq9129qnnqd9100',
+    secret: 'BigHomieBalling',
     resave: false,
     saveUninitialized: true,
 }
@@ -88,9 +88,9 @@ app.post('/register', async (req, res) => {
                 userPassword: finalPassword,
             })
             await user.save()
-            req.session.user_id = user._id;
             return res.json({
-                message: 'whomAI account created successfully'
+                message: 'whomAI account created successfully',
+                cookie: user._id
             })
         }
     }

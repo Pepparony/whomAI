@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import {CookiesProvider, useCookies} from 'react-cookie'
 
 function App() {
   const navigate = useNavigate()
+
+  // useState to update the input boxes
   const [viewPasscode, setViewPasscode] = useState(false)
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+
+  // useState for cookie and session storage
+  const [cookies, setCookie] = useCookies(['user'])
 
   function editEmail(evt) {
     const email = evt.target.value
@@ -56,6 +62,7 @@ function App() {
         usernameInputBox.value = 'You must create a username'
       }
       else if(check.data.message) {
+        setCookie('user', check.data.cookie, { path: '/' })
         return navigate('/')
       }
     }

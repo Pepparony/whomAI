@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import {CookiesProvider, useCookies} from 'react-cookie'
 
-function Login() {
+function Login({}) {
     const navigate = useNavigate()
     const [viewPasscode, setViewPasscode] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    // useState for the Cookies
+    const [cookies, setCookie] = useCookies(['user'])
 
     function editEmail(evt) {
         const email = evt.target.value
@@ -44,6 +48,7 @@ function Login() {
                 header.innerText = 'whomAI - incorrect login'
             }
             if (check.data.message) {
+                setCookie('user', check.data.cookie, { path: '/' })
                 return navigate('/')
             }
             else {
@@ -73,7 +78,7 @@ function Login() {
                     {viewPasscode == true ? <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="text" name="password" placeholder="Password" id="passwordInputBox" />
                         <button className="" onClick={viewPassword}>-_-</button> </div> : <div className="flex border border-black rounded-lg bg-white w-4/5 jusitfy-between"> <input onChange={editPassword} value={password} className="rounded-lg w-4/5 py-3 px-2 outline-none" type="password" name="password" placeholder="Password" id="passwordInputBox" />
                         <button className="" onClick={viewPassword}>-_-</button> </div>}
-                    <button onClick={logIn} type="submit" className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Register</button>
+                    <button onClick={logIn} type="submit" className="self-center bg-blue-500 text-gray-100 py-4 w-3/5 rounded-lg">Log in</button>
                     <section className="flex w-full justify-between h-[50%] flex-col space-y-8">
                         <div className="w-4/5 ml-[10%] flex justify-evenly">
                             <div className="text-lg">Git</div>
