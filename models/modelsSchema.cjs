@@ -6,13 +6,16 @@ const modelSchema = new Schema({
         type:String,
         required: true,
     },
-
     modelDescription: {
         type: String,
         required: true,
     },
     frequentWords: {
         type: String,
+    },
+    Author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
     dateAdded:{
         type:Date,

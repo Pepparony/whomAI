@@ -1,4 +1,5 @@
 // Import all required packages
+
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
@@ -7,7 +8,7 @@ const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
 const session = require('express-session')
 const bcrypt = require('bcrypt')
-const Model = require('../models/modelsSchema.cjs')
+// const Model = require('../models/modelsSchema.cjs')
 
 // Setting up the session to store user cookies
 app.use(express.urlencoded({ extended: true }));
@@ -26,14 +27,16 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Get variables from the ENV file - Includes API key
-require('dotenv/config')
+    require('dotenv').config()
 
 //setting up the MongoDB database
-const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true }
-mongoose.connect(process.env.DB_URL, dbOptions)
-    .then(() => { console.log("Database is connected") })
-    .catch(err => console.log(err))
-
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => { 
+        console.log("Database connected successfully");
+    })
+    .catch(err => {
+        console.error("Database connection error:", err);
+    });
 // The post request to access the API data
 app.post('/done', async (req, res) => {
     try {
@@ -80,7 +83,7 @@ app.post('/register', async (req, res) => {
                 error: 'username is required'
             })
         }
-        else {
+        if(!search) {
             const finalPassword = await bcrypt.hash(password, 12)
             const user = await User.create({
                 email: email,
@@ -91,6 +94,11 @@ app.post('/register', async (req, res) => {
             return res.json({
                 message: 'whomAI account created successfully',
                 cookie: user._id
+            })
+        }
+        else {
+            return res.json({
+                error:'email is already in use'
             })
         }
     }

@@ -1,6 +1,6 @@
 import { CookiesProvider, useCookies  } from 'react-cookie'
 import Login from './Login.jsx'
-import Testing from './testing.jsx'
+import Create from './Createmodel.jsx'
 
 function Models() {
 
@@ -12,7 +12,7 @@ function Models() {
 
     return (    
         <CookiesProvider>
-            <div>{cookies.user ? <Testing /> : <Login handleLogin={dealWithLogin}/>}</div>
+            <div>{cookies.user ? <Create/> : <Login handleLogin={dealWithLogin}/>}</div>
         </CookiesProvider >
     )
 }
