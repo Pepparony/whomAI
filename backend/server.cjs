@@ -7,7 +7,7 @@ const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
 const session = require('express-session')
 const bcrypt = require('bcrypt')
-
+const Model = require('../models/modelsSchema.cjs')
 
 // Setting up the session to store user cookies
 app.use(express.urlencoded({ extended: true }));

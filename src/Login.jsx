@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import {CookiesProvider, useCookies} from 'react-cookie'
 
-function Login({}) {
+function Login({handleLogin}) {
     const navigate = useNavigate()
     const [viewPasscode, setViewPasscode] = useState(false)
     const [email, setEmail] = useState("")
@@ -48,7 +48,7 @@ function Login({}) {
                 header.innerText = 'whomAI - incorrect login'
             }
             if (check.data.message) {
-                setCookie('user', check.data.cookie, { path: '/' })
+                handleLogin(check)
                 return navigate('/')
             }
             else {
