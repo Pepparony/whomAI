@@ -13,9 +13,10 @@ const modelSchema = new Schema({
     frequentWords: {
         type: String,
     },
-    Author: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true
     },
     dateAdded:{
         type:Date,

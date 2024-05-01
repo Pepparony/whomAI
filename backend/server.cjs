@@ -8,7 +8,7 @@ const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
 const session = require('express-session')
 const bcrypt = require('bcrypt')
-// const Model = require('../models/modelsSchema.cjs')
+const Model = require('../models/modelsSchema.cjs')
 
 // Setting up the session to store user cookies
 app.use(express.urlencoded({ extended: true }));
@@ -27,11 +27,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Get variables from the ENV file - Includes API key
-    require('dotenv').config()
+require('dotenv').config()
 
 //setting up the MongoDB database
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => { 
+    .then(() => {
         console.log("Database connected successfully");
     })
     .catch(err => {
@@ -83,7 +83,7 @@ app.post('/register', async (req, res) => {
                 error: 'username is required'
             })
         }
-        if(!search) {
+        if (!search) {
             const finalPassword = await bcrypt.hash(password, 12)
             const user = await User.create({
                 email: email,
@@ -98,7 +98,7 @@ app.post('/register', async (req, res) => {
         }
         else {
             return res.json({
-                error:'email is already in use'
+                error: 'email is already in use'
             })
         }
     }
@@ -121,6 +121,7 @@ app.post('/login', async (req, res) => {
             req.session.user_id = user._id
             return res.json({
                 message: 'Login successful, welcome back',
+                cookie: user._id,
                 redirectLink: 'http://localhost5173'
             })
         }
@@ -133,6 +134,53 @@ app.post('/login', async (req, res) => {
     catch (err) {
         console.log(err)
     }
+})
+
+app.post('/createmodel', async (req, res) => {
+    try {
+        const { name, frequentWord, description, author } = req.body
+        if (!name) {
+            return res.json({
+                error: 'You must provide a name'
+            })
+        }
+        if (!description) {
+            return res.json({
+                error: 'You must provide a description'
+            })
+        }
+        else {
+            const model = await Model.create({
+                modelName: name,
+                frequentWords: frequentWord,
+                modelDescription: description,
+                author: author,
+            })
+            await model.save()
+            return res.json({
+                message: 'model was created successfully'
+            })
+        }
+    }
+    catch (err) {
+        console.log(`error at createmodel post route: ${err}`)
+    }
+})
+
+app.post('/mymodels', async (req, res) => {
+    try{
+    const {userID} = req.body
+    const models = await Model.find({
+        author: userID,
+    })
+    return res.json({
+        message: models.name
+    })
+}
+catch(err) {
+    console.log(`Error at mymodels backend ${err}`)
+}
+
 })
 
 // The Localhost port that the server is being hosted on
