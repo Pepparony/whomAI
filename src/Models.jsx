@@ -13,7 +13,7 @@ function Models() {
     
     return (    
         <CookiesProvider>
-            <div>{cookies.user || cookies.user == 'undefined' ? <Create/> : <Login handleLogin={dealWithLogin}/>}</div>
+            <div>{cookies.user || cookies.user == 'undefined' ? <Create cookie={cookies.user}/> : <Login handleLogin={dealWithLogin}/>}</div>
         </CookiesProvider >
     )
 }

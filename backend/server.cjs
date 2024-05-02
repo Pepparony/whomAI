@@ -167,20 +167,26 @@ app.post('/createmodel', async (req, res) => {
     }
 })
 
-app.post('/mymodels', async (req, res) => {
+app.post('/mymodels', async (req,res) => {
     try{
-    const {userID} = req.body
-    const models = await Model.find({
-        author: userID,
-    })
-    return res.json({
-        message: models.name
-    })
-}
-catch(err) {
-    console.log(`Error at mymodels backend ${err}`)
-}
-
+        const {identity} = req.body
+        const model = await Model.find({
+            author: identity
+        })
+        if(!model) {
+            return res.json({
+                message: 'You dont have any models'
+            })
+        }
+        if(model) {
+            return res.json({
+                message: model
+            })
+        }
+    }
+    catch(err) {
+        console.log(`error on post request to /mymodels ${err}`)
+    }
 })
 
 // The Localhost port that the server is being hosted on

@@ -1,10 +1,17 @@
 import axios from 'axios'
 import { useEffect } from 'react';
 
-function Allmodels(getModels) {
+function Allmodels(cookie) {
+
+    // const fetchIt = async () => {
+    //     const response = await axios.post('http://localhost:3000/mymodels', { identity: cookie.cookie })
+    //     console.log(response.data.message)
+    //     return response.data.message
+    // }
+    // fetchIt()
     return (
         <div>
-            <div className="text-green-500">Hello world: Reminder for holden... console.log the response from the backend to ensure it is a STRING</div>
+            <div className="text-green-500">Hi</div>
         </div>
     )
 }

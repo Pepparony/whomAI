@@ -39,7 +39,7 @@ function Create({ cookie }) {
             descriptionn.classList.value = 'You must provide a description'
         }
         if (response.data.message) {
-            header.classList.add('text-green-500')
+            header.classList.add('text-green-600')
             header.innerText = 'Create another model - Model created!'
         }
         else {
@@ -49,15 +49,19 @@ function Create({ cookie }) {
     }
 
     const fetchIt = async () => {
-        const response = await axios.post('http://localhost:3000/mymodels', {author: cookie})
-        return response.data.message
+        const response = await axios.post('http://localhost:3000/mymodels', { identity: cookie })
+        const number = response.data.message.length
+        for(let i=0; i < number; i++) {
+             console.log(response.data.message[i].modelName)
+        }
     }
+    fetchIt()
     return (
         <div className="w-screen h-screen flex flex-col">
             <section className="h-1/5 flex flex-col border border-red-500">
                 <div>Your models:</div>
                 <div>Models here.. </div>
-                <Allmodels getModels={fetchIt}/>
+                <Allmodels cookie={cookie}/>
             </section>
             <section>
                 <div></div>
