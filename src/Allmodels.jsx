@@ -1,20 +1,29 @@
 import axios from 'axios'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-function Allmodels(getModels) {
+function Allmodels(allModels) {
+    const [update, setUpdate] = useState('')
+    // useEffect(() => {
+    //     console.log('I ran')
+    // })
 
 
-    // const fetchIt = async () => {
-    //     const response = await axios.post('http://localhost:3000/mymodels', { identity: cookie.cookie })
-    //     console.log(response.data.message)
-    //     return response.data.message
+    // const finalModels = allModels.models
+    // for(let i = 0; i < finalModels.length; i++) {
+    //     return (
+    //         <div>
+    //             <div className="text-green-500">{finalModels[i]}</div>
+    //         </div>
+    //     )
+    //     setUpdate('yuh')
     // }
-    // fetchIt()
-    return (
+    
+    return(
         <div>
-            <div className="text-green-500">Hi</div>
+            <div>Hell world</div>
         </div>
     )
+    
 }
 
 export default Allmodels;

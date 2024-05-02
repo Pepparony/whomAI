@@ -6,6 +6,7 @@ function Create({ cookie }) {
     const [modelName, setModelName] = useState('')
     const [modelDescription, setModelDescription] = useState('')
     const [frequentWords, setFrequentWords] = useState('')
+    const [models, setModels] = useState([])
 
 
     function editName(evt) {
@@ -51,18 +52,21 @@ function Create({ cookie }) {
     const fetchIt = async () => {
         const response = await axios.post('http://localhost:3000/mymodels', { identity: cookie })
         const number = response.data.message.length
+        const finalModels = []
         for (let i = 0; i < number; i++) {
-            console.log(response.data.message[i].modelName)
+            finalModels.push(response.data.message[i].modelName)
         }
+        setModels(finalModels)
     }
-
-    const easy = fetchIt()
+    fetchIt()
     return (
         <div className="w-screen h-screen flex flex-col">
             <section className="h-1/5 flex flex-col border border-red-500">
                 <div>Your models:</div>
                 <div>Models here.. </div>
-                <Allmodels getModels={easy}/>
+                <ul>
+                    <Allmodels models={models}/>
+                </ul>
             </section>
             <section>
                 <div></div>
