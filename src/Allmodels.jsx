@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { useEffect } from 'react';
 
-function Allmodels(cookie) {
+function Allmodels(getModels) {
+
 
     // const fetchIt = async () => {
     //     const response = await axios.post('http://localhost:3000/mymodels', { identity: cookie.cookie })

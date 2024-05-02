@@ -51,17 +51,18 @@ function Create({ cookie }) {
     const fetchIt = async () => {
         const response = await axios.post('http://localhost:3000/mymodels', { identity: cookie })
         const number = response.data.message.length
-        for(let i=0; i < number; i++) {
-             console.log(response.data.message[i].modelName)
+        for (let i = 0; i < number; i++) {
+            console.log(response.data.message[i].modelName)
         }
     }
-    fetchIt()
+
+    const easy = fetchIt()
     return (
         <div className="w-screen h-screen flex flex-col">
             <section className="h-1/5 flex flex-col border border-red-500">
                 <div>Your models:</div>
                 <div>Models here.. </div>
-                <Allmodels cookie={cookie}/>
+                <Allmodels getModels={easy}/>
             </section>
             <section>
                 <div></div>
