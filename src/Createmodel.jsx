@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from 'axios'
 import Allmodels from './Allmodels.jsx'
+import Navbar from './Navbar.jsx'
 
 function Create({ cookie }) {
     const [modelName, setModelName] = useState('')
@@ -60,17 +61,17 @@ function Create({ cookie }) {
     }
     fetchIt()
     return (
-        <div className="w-screen h-screen flex flex-col">
+        <div className="flex flex-col font-main bg-[#ede7e1]">
             <section className="h-fit flex flex-col border border-red-500">
-                <div>Your models:</div>
-                <div>Models here.. </div>
+                <Navbar/>
+                <div className="font-bold text-4xl tracking-wide my-10">Your models:</div>
                 <Allmodels models={models}/>
             </section>
             <section>
                 <div></div>
-                <div className="flex flex-col border border-green-500">
+                <div className="flex flex-col">
                     <h2 className="font-bold text-2xl h-1/5" id='header'>Create another model</h2>
-                    <div className="border border-pink-500 h-4/5 flex flex-col">
+                    <div className="h-4/5 flex flex-col">
                         <div className="w-full flex space-x-8"><h3>Name:</h3><input onChange={editName} className="border border-black rounded" type="text" placeholder="Billy" name="modelName" id='namee' /></div>
                         <div className="w-full flex space-x-8"><h3>Frequent words:</h3><input onChange={editWords} className="border border-black rounded" type="text" placeholder="dude,bro,when,ok, etc" name="frequentWords" id='wordss' /></div>
                         <div className="w-full flex space-x-8"><h3>Description:</h3><input onChange={editDescription} className="border border-black rounded" type="text" placeholder="Really like basketball" name="modelDescription" id='descriptionn' /></div>

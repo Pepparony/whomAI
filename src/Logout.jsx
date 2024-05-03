@@ -13,9 +13,7 @@ function Logout() {
 
 
     return (
-        <>
             <button className="text-orange-500" onClick={handleLogout}>Logout</button>
-        </>
     )
 }
 
