@@ -3,27 +3,19 @@ import { useState, useEffect } from 'react';
 
 function Allmodels(allModels) {
     const [update, setUpdate] = useState('')
-    // useEffect(() => {
-    //     console.log('I ran')
-    // })
 
-
-    // const finalModels = allModels.models
-    // for(let i = 0; i < finalModels.length; i++) {
-    //     return (
-    //         <div>
-    //             <div className="text-green-500">{finalModels[i]}</div>
-    //         </div>
-    //     )
-    //     setUpdate('yuh')
-    // }
-    
-    return(
-        <div>
-            <div>Hell world</div>
+    const finalModels = allModels.models;
+    const modelsJSX = finalModels.map((model, index) => (
+        <div key={index}>
+            <div className="text-green-500">{model}</div>
         </div>
-    )
-    
+    ));
+
+    return (
+        <div className="h-fit">
+            {modelsJSX}
+        </div>
+    );
 }
 
 export default Allmodels;

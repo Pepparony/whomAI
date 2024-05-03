@@ -61,12 +61,10 @@ function Create({ cookie }) {
     fetchIt()
     return (
         <div className="w-screen h-screen flex flex-col">
-            <section className="h-1/5 flex flex-col border border-red-500">
+            <section className="h-fit flex flex-col border border-red-500">
                 <div>Your models:</div>
                 <div>Models here.. </div>
-                <ul>
-                    <Allmodels models={models}/>
-                </ul>
+                <Allmodels models={models}/>
             </section>
             <section>
                 <div></div>
