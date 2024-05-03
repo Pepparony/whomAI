@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from 'axios'
 import Allmodels from './Allmodels.jsx'
 import Navbar from './Navbar.jsx'
