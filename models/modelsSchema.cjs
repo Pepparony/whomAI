@@ -13,6 +13,9 @@ const modelSchema = new Schema({
     frequentWords: {
         type: String,
     },
+    sampleText: {
+        type:String,
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

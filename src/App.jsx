@@ -78,10 +78,10 @@ function App() {
   return (
 
     <div className="grid place-items-center bg-gray-100 h-screen w-screen font-main">
-      <div className="bg-white w-2/5 h-4/5 border shadow-xl">
+      <div className="bg-white w-4/5 h-4/5 border shadow-xl md:w-3/5 lg:w-2/5">
         <div className="flex flex-col place-items-start ml-[10%] h-[25%] justify-center space-y-1">
-          <h2 className="font-bold text-4xl">whomAI</h2>
-          <p className="text-lg">Create an account to talk to your AI friend</p>
+          <h2 className="font-bold text-5xl md:text-5xl text-center md:place-self-start">whomAI</h2>
+          <p className="text-lg hidden lg:inline">Create an account to talk to your AI friend</p>
         </div>
         <section className="flex flex-col h-[35%] w-full place-items-center space-y-10">
           <input onChange={editEmail} value={email} className="w-4/5 rounded-lg py-3 px-2 outline-blue-500 border border-black" type="email" name="email" placeholder='Email' id="emailBox"/>
