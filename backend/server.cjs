@@ -138,7 +138,7 @@ app.post('/login', async (req, res) => {
 
 app.post('/createmodel', async (req, res) => {
     try {
-        const { name, frequentWord, description, author } = req.body
+        const { name, frequentWords, description, author } = req.body
         if (!name) {
             return res.json({
                 error: 'You must provide a name'
@@ -152,7 +152,7 @@ app.post('/createmodel', async (req, res) => {
         else {
             const model = await Model.create({
                 modelName: name,
-                frequentWords: frequentWord,
+                frequentWords: frequentWords,
                 modelDescription: description,
                 author: author,
             })

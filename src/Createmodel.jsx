@@ -8,6 +8,8 @@ function Create({ cookie }) {
     const [modelDescription, setModelDescription] = useState('')
     const [frequentWords, setFrequentWords] = useState('')
     const [models, setModels] = useState([])
+    const [description, setDescription] = useState([])
+    const [words, setWords] = useState([])
 
 
     function editName(evt) {
@@ -54,10 +56,16 @@ function Create({ cookie }) {
         const response = await axios.post('http://localhost:3000/mymodels', { identity: cookie })
         const number = response.data.message.length
         const finalModels = []
+        const finalDesc = []
+        const finalWords = []
         for (let i = 0; i < number; i++) {
-            finalModels.push(response.data.message[i].modelName)
+            finalModels.push(response.data.message[i])
+            finalDesc.push(response.data.message[i].modelDescription)
+            finalWords.push(response.data.message[i].frequentWords)
         }
         setModels(finalModels)
+        setDescription(finalDesc)
+        setWords(finalWords)
     }
     fetchIt()
     return (
@@ -65,7 +73,7 @@ function Create({ cookie }) {
             <section className="h-fit flex flex-col border border-red-500">
                 <Navbar/>
                 <div className="font-bold text-4xl tracking-wide my-10">Your models:</div>
-                <Allmodels models={models}/>
+                <Allmodels modelsWords={words} modelsDesc={description} models={models}/>
             </section>
             <section>
                 <div></div>

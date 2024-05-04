@@ -1,29 +1,30 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react';
 
-function Allmodels(allModels) {
+function Allmodels({ models, modelsDesc, modelsWords }) {
     const [update, setUpdate] = useState('')
 
-    const finalModels = allModels.models;
-    const numberLength = finalModels.length
+    const finalModels = models;
     const modelsJSX = finalModels.map((model, index) => (
-        <div key={index} className="flex flex-col">
-            <div className="text-zinc-800 text-2xl font-bold flex space-x-4">
-                <div>{model}</div>
-                <span className="text-zinc-700 text-sm self-end">created by you</span>
+        <div key={index} className="className text-2xl flex flex-col bg-gray-200 w-2/3 p-8 hover:bg-gray-300 md:w-3/4 shadow-sm">
+            <div className="flex space-x-2">
+                <div className="font-bold text-2xl md:text-3xl text-zinc-800">{model.modelName}</div>
+                <span className="text-sm self-center text-zinc-600 md:text-base">Created: 2025-10-05</span>
             </div>
-            <div className="flex">
-                <div className="pl-5">
-
-                </div>
-            <a href="" className="text-blue-500 hover:underline hover:text-blue-600">Talk to this model</a>
+            <div className="pl-5 text-lg md:textx">
+                <span className="text-zinc-600">Frequent words: </span> {model.frequentWords}
+            </div>
+            <div className="pl-5 text-lg md:text-xl">
+                <span className="text-zinc-600"> Description: </span>{model.modelDescription}
             </div>
         </div>
     ));
 
+
+
     return (
-        <div className="h-fit flex">
-            <div>{modelsJSX}</div>
+        <div className="h-fit grid grid-rows-2 gap-3 place-items-center md:grid-cols-2">
+            {modelsJSX}
         </div>
     );
 }
