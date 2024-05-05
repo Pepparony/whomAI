@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from 'axios'
 import Allmodels from './Allmodels.jsx'
 import Navbar from './Navbar.jsx'
+import './createmodel.css'
 
 function Create({ cookie }) {
     const [modelName, setModelName] = useState('')
@@ -75,12 +76,12 @@ function Create({ cookie }) {
     }
     fetchIt()
     return (
-        <div className="flex flex-col font-main bg-gray-100 h-screen">
+        <div className="flex flex-col font-main bg-gray-100 h-screen scroll-smooth">
             <section className="h-fit flex flex-col">
                 <Navbar/>
                 <Allmodels cookie={cookie} modelsWords={words} modelsDesc={description} models={models}/>
             </section>
-            <section className="place-self-center">
+            <section className="place-self-center" id="create">
                 <div className="flex flex-col w-full">
                     <h2 className="font-bold text-2xl h-1/5 md:h-2/5 md:text-4xl" id='header'>Create another model</h2>
                     <div className="h-4/5 flex flex-col">

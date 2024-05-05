@@ -38,7 +38,7 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology
         console.error("Database connection error:", err);
     });
 // The post request to access the API data
-app.post('/done', async (req, res) => {
+app.post('/request', async (req, res) => {
     try {
         const anthropic = new Anthropic({
             apiKey: process.env.API_KEY

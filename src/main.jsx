@@ -18,8 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route exact path="/testing" element={<Testing />} />
         <Route exact path='/login' element={<Models/>} />
         <Route exact path='/models' element={<Models/>}/>
-        <Route exact path='/chat/:userID' element={<Chat/>}/>
-        <Route exact path="/chat" element={<Chat/>}/>
+        <Route exact path='/chat/:name/:userID' element={<Chat/>}/>
         <Route path='/*' element={<Notfound/>}/>
     </Routes>
   </BrowserRouter>
