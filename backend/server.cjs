@@ -190,6 +190,28 @@ app.post('/mymodels', async (req,res) => {
     }
 })
 
+app.post('/chat', async (req,res) => {
+    try{
+        const {identity} = req.body
+        const model = await Model.find({
+            _id: identity
+        })
+        if(!model) {
+            return res.json({
+                message: 'no model found'
+            })
+        }
+        if(model) {
+            return res.json({
+                message: model
+            })
+        }
+    }
+    catch(err) {
+        console.log(`error on post request to /mymodels ${err}`)
+    }
+})
+
 // The Localhost port that the server is being hosted on
 app.listen(3000, (req, res) => {
     console.log('LISTENING ON PORT 3000')
