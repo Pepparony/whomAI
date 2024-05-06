@@ -6,7 +6,12 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
+./backend/.env
+/backend/.env
+env
+.env
+backend/.env
+backend/env
 node_modules
 dist
 dist-ssr
