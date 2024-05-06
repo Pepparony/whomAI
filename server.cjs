@@ -5,12 +5,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const User = require('../models/userSchema.cjs')
+const User = require('./models/userSchema.cjs')
 const cors = require('cors')
 const Anthropic = require('@anthropic-ai/sdk');
 const session = require('express-session')
 const bcrypt = require('bcrypt')
-const Model = require('../models/modelsSchema.cjs')
+const Model = require('./models/modelsSchema.cjs')
 
 
 // Setting up the session to store user cookies
