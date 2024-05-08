@@ -13,7 +13,7 @@ function Logout() {
 
 
     return (
-            <button className="bg-blue-400 py-2 px-7 rounded-full transition-all duration-200 hover:bg-blue-500" onClick={handleLogout}>Logout</button>
+            <button className="text-blue-500 text-lg" onClick={handleLogout}>Logout</button>
     )
 }
 

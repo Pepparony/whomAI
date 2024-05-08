@@ -10,8 +10,6 @@ function Create({ cookie }) {
     const [frequentWords, setFrequentWords] = useState('')
     const [sampleText, setSampleText] = useState('')
     const [models, setModels] = useState([])
-    const [description, setDescription] = useState([])
-    const [words, setWords] = useState([])
 
 
     function editName(evt) {
@@ -71,25 +69,23 @@ function Create({ cookie }) {
             finalWords.push(response.data.message[i].frequentWords)
         }
         setModels(finalModels)
-        setDescription(finalDesc)
-        setWords(finalWords)
     }
     fetchIt()
     return (
-        <div className="flex flex-col font-main bg-gray-100 h-screen scroll-smooth">
+        <div className="flex flex-col font-main bg-[#fffffa] scroll-smooth">
             <section className="h-fit flex flex-col">
                 <Navbar/>
-                <Allmodels cookie={cookie} modelsWords={words} modelsDesc={description} models={models}/>
+                <Allmodels cookie={cookie} models={models}/>
             </section>
             <section className="place-self-center" id="create">
-                <div className="flex flex-col w-full">
+                <div className="flex flex-col w-full border border-gray-200 py-10">
                     <h2 className="font-bold text-2xl h-1/5 md:h-2/5 md:text-4xl" id='header'>Create another model</h2>
-                    <div className="h-4/5 flex flex-col">
+                    <div className="flex flex-col">
                         <div className="w-full flex space-x-8 md:text-xl lg:text-2xl"><h3>Name:</h3><input onChange={editName} className="border border-black rounded px-2 py-1" type="text" placeholder="Billy" name="modelName" id='namee' /></div>
                         <div className="w-full flex space-x-8 md:text-xl lg:text-2xl"><h3>Frequent words:</h3><input onChange={editWords} className="border border-black rounded px-2 py-1" type="text" placeholder="dude,bro,when,ok, etc" name="frequentWords" id='wordss' /></div>
-                        <div className="w-full flex space-x-8 md:text-xl lg:text-2xl"><h3>Description:</h3><input onChange={editDescription} className="border border-black rounded px-2 py-1" type="text" placeholder="Really like basketball" name="modelDescription" id='descriptionn' /></div>
+                        <div className="w-full flex space-x-8 md:text-xl lg:text-2xl"><h3>Description:</h3><input onChange={editDescription} className="border border-black rounded px-2 py-1" type="text" placeholder="As detailed as possible" name="modelDescription" id='descriptionn' /></div>
                         <div className="w-full flex space-x-8 md:text-xl lg:text-2xl"><h3>Sample text:</h3><input onChange={editSampleText} className="border border-black rounded px-2 py-1" type="text" placeholder="Insert messages / essay" name="modelSampleText" id='samplee' /></div>
-                        <button onClick={createNewModel} className="py-2 px-6 w-fit mt-10 bg-blue-400 rounded-lg">Create model</button>
+                        <button onClick={createNewModel} className="py-2 px-6 w-full mt-10 bg-blue-400 hover:bg-blue-500">Create model</button>
                     </div>
                 </div>
             </section>

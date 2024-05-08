@@ -58,7 +58,7 @@ app.post('/request', async (req, res) => {
            model: 'claude-2.1',
            max_tokens: 1024,
            messages: [
-             {"role": "user", "content": `I want you to be my friend ${model.modelName}. Please speak to me like this:${model.modelDescription} using these key words consistently throughout your message:${model.frequentWords}. Here is the message: ${req.body.messages}`}
+             {"role": "user", "content": `I want you to be my friend ${model.modelName}. Please speak to me like this:${model.modelDescription} using these key words consistently throughout your message:${model.frequentWords}. Do not roleplay, and try to sound as human as possible, no need to be over the top. Here is the message: ${req.body.messages}`}
            ]
          });
          // Send the JSON
