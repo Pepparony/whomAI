@@ -87,12 +87,12 @@ function Chatting() {
             </section>
             <section className="h-[90%] flex flex-col place-items-center justify-center">
                 <div id="firstMessage">
-                    <img src="/src/assets/robotWithRemovedBackground.png" alt="" />
+                    <img src="/assets/robotWithRemovedBackground.png" alt="" />
                     <div className="text-center text-xl text-blue-500">What up?</div>
                 </div>
                 <div className="flex flex-col w-full">
                     <div className="flex justify-center">
-                        <img className="h-1/6 sm:h-1/4 hidden" src="/src/assets/robotWithRemovedBackground.png" alt="" id="image" />
+                        <img className="h-1/6 sm:h-1/4 hidden" src="/assets/robotWithRemovedBackground.png" alt="" id="image" />
                         <p className="text-blue-500 w-2/3 border border-blue-500 py-4 pl-6 rounded-lg h-fit hidden" id="message">{responseLog}</p>
                     </div>
                 </div>
