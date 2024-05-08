@@ -232,5 +232,5 @@ app.post('/chat', async (req,res) => {
 
 // The Localhost port that the server is being hosted on
 app.listen(3000, (req, res) => {
-   console.log('LISTENING ON PORT 3000')
+   console.log('LISTENING ON PORT 3000 -_-')
 })
