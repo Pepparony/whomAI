@@ -13,13 +13,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Models />}/>
-        <Route exact path="/register" element={<App/>}/>
+        <Route exact path='/' element={<Models />}/>
+        <Route exact path='/register' element={<App/>}/>
         <Route exact path="/testing" element={<Testing />} />
         <Route exact path='/login' element={<Models/>} />
         <Route exact path='/models' element={<Models/>}/>
         <Route exact path='/chat/:name/:userID' element={<Chat/>}/>
-        <Route path='/*' element={<Notfound/>}/>
+        <Route path='*' element={<Notfound/>}/>
     </Routes>
   </BrowserRouter>
   </React.StrictMode >,
