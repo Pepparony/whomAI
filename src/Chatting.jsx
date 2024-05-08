@@ -10,17 +10,18 @@ import Button from '@mui/material/Button';
 
 function Chatting() {
     const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
-  };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleOpen = () => {
+        setOpen(true);
+    };
     const params = useParams()
     const userID = params.userID
     const name = params.name
     const [msg, setMsg] = useState('')
     const [response, setResponse] = useState('')
+    const [responseLog, setResponseLog] = useState([])
 
 
     const editMsg = (evt) => {
@@ -28,20 +29,25 @@ function Chatting() {
         setMsg(message)
     }
 
-
-
     async function sendMessage() {
         try {
             const firstMessage = document.getElementById('firstMessage')
             const image = document.getElementById('image')
             const message = document.getElementById('message')
+            setResponseLog(msg)
             setMsg('')
             const response = await axios.post('http://localhost:3000/request', { identity: userID, messages: msg })
             if (response) {
                 firstMessage.classList.add('hidden')
+                setResponse(response.data[0].text)
+                setResponseLog(response.data[0].text)
+                const allResponses = responseLog.map((response, index) => (
+                    <div>
+                        <div key={index}>{response}</div>
+                    </div>
+                ));
                 image.classList.remove('hidden')
                 message.classList.remove('hidden')
-                setResponse(response.data[0].text)
             }
             if (!response) {
                 console.log('No response came back :(, refer to backend console for error information')
@@ -64,31 +70,30 @@ function Chatting() {
     return (
         <div className="flex flex-col h-screen w-screen bg-zinc-800">
             <section className="flex flex-col place-items-center place-self-center w-4/5 h-[5%] md:h-[10%] bg-zinc-800">
-                <a href="/details" className="font-bold text-3xl tracking-wide text-gray-100">{name}</a>
                 <div>
-      <Button onClick={handleOpen}>info</Button>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-        onClick={handleClose}
-      >
-        <div className="flex flex-col bg-zinc-700 py-4 px-2 space-y-3">
-            <div className="text-lg">Model information:</div>
-            <div>Name: {name}</div>
-            <div>Model ID: {userID}</div>
-        </div>
-      </Backdrop>
-    </div>
+                    <Button onClick={handleOpen}><div className="text-gray-100 text-2xl">{name}</div></Button>
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={open}
+                        onClick={handleClose}
+                    >
+                        <div className="flex flex-col bg-zinc-700 py-4 px-2 space-y-3">
+                            <div className="text-lg">Model information:</div>
+                            <div>Name: {name}</div>
+                            <div>Model ID: {userID}</div>
+                        </div>
+                    </Backdrop>
+                </div>
             </section>
             <section className="h-[90%] flex flex-col place-items-center justify-center">
                 <div id="firstMessage">
-                <img src="/src/assets/robotWithRemovedBackground.png" alt="" />
-                <div className="text-center text-xl text-blue-500">What up?</div>
+                    <img src="/src/assets/robotWithRemovedBackground.png" alt="" />
+                    <div className="text-center text-xl text-blue-500">What up?</div>
                 </div>
                 <div className="flex flex-col w-full">
                     <div className="flex justify-center">
-                <img className="h-1/6 sm:h-1/4 hidden" src="/src/assets/robotWithRemovedBackground.png" alt="" id="image"/>
-                    <p className="text-blue-500 w-2/3 border border-blue-500 py-4 pl-6 rounded-lg h-fit hidden" id="message">{response}</p>
+                        <img className="h-1/6 sm:h-1/4 hidden" src="/src/assets/robotWithRemovedBackground.png" alt="" id="image" />
+                        <p className="text-blue-500 w-2/3 border border-blue-500 py-4 pl-6 rounded-lg h-fit hidden" id="message">{responseLog}</p>
                     </div>
                 </div>
             </section>

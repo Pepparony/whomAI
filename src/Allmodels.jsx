@@ -30,13 +30,12 @@ function Allmodels({models}) {
         )
     }
 
-
-
-    return (
+    else {
+        return (
         <div className="h-fit grid grid-rows-2 gap-3 place-items-center md:grid-cols-2">
             {modelsJSX}
         </div>
-    );
+    )};
 }
 
 export default Allmodels;

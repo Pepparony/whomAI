@@ -37,6 +37,8 @@ function Create({ cookie }) {
     async function createNewModel() {
         const header = document.getElementById('header')
         const namee = document.getElementById('namee')
+        const wordss = document.getElementById('wordss')
+        const samplee = document.getElementById('samplee')
         const descriptionn = document.getElementById('descriptionn')
         const response = await axios.post('http://localhost:3000/createmodel', { name: modelName, frequentWords: frequentWords, description: modelDescription, sampleText: sampleText, author: cookie })
         if (response.data.error === 'You must provide a name') {
@@ -50,6 +52,10 @@ function Create({ cookie }) {
         if (response.data.message) {
             header.classList.add('text-green-600')
             header.innerText = 'Create another model - Model created!'
+            namee.value = ''
+            descriptionn.value = ''
+            wordss.value = ''
+            samplee.value = ''
         }
         else {
             header.classList.add('text-red-500')
@@ -61,12 +67,8 @@ function Create({ cookie }) {
         const response = await axios.post('http://localhost:3000/mymodels', { identity: cookie })
         const number = response.data.message.length
         const finalModels = []
-        const finalDesc = []
-        const finalWords = []
         for (let i = 0; i < number; i++) {
             finalModels.push(response.data.message[i])
-            finalDesc.push(response.data.message[i].modelDescription)
-            finalWords.push(response.data.message[i].frequentWords)
         }
         setModels(finalModels)
     }
