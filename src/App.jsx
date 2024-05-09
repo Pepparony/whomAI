@@ -43,7 +43,7 @@ function App() {
     const passwordInputBox = document.getElementById('passwordInputBox')
     const usernameInputBox = document.getElementById('usernameInputBox')
     try {
-      const check = await axios.post('htpps://whom-ai.vercel.app/register', { email: email, username: username, password: password })
+      const check = await axios.post('https://whom-ai.vercel.app/register', { email: email, username: username, password: password })
       if (check.data.error === 'email is already in use') {
         inputBox.classList.add('text-red-500')
         inputBox.value = 'email is already in use'
