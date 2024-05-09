@@ -28,7 +28,7 @@ app.use(express.json());
 
 // Add needed packages into the app, cors for the request and JSON to communicate data
 app.use(cors({
-    origin: ['https://whom-ai.vercel.app/']
+    origin: ['https://whom-ai.vercel.app']
 }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

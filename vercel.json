@@ -1,6 +1,6 @@
 {
     "rewrites":  [
-      {"source": "/(.*)", "destination": "/"}
+      {"source": "/(.*)", "destination": "/", "use" : "@vercel/node"}
     ],
     "buildCommand": "npm run build"
   }
