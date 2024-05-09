@@ -27,7 +27,9 @@ app.use(express.json());
 
 
 // Add needed packages into the app, cors for the request and JSON to communicate data
-app.use(cors())
+app.use(cors({
+    origin: ['https://whom-ai.vercel.app/']
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -55,7 +57,7 @@ app.post('/request', async (req, res) => {
            apiKey: process.env.API_KEY
        });
        const msg = await anthropic.messages.create({
-           model: 'claude-2.1',
+           model: 'claude-3-opus-20240229',
            max_tokens: 1024,
            messages: [
              {"role": "user", "content": `I need a friend to talk to. I want you to talk to me like my friend ${model.modelName}. Here is a description of my friend:${model.modelDescription}, use these key words consistently throughout your message:${model.frequentWords}. Do not roleplay, and try to sound as human as possible, keep your response very concise. Here is the message: ${req.body.messages}`}
